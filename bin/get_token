@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'patron'
+require 'launchy'
+require 'base64'
+
+client = Patron::Session.new do |config|
+  config.base_url = 'https://api.secure.mercedes-benz.com/oidc10/auth/oauth/v2/'
+end
+
+client_id = ENV.fetch('CLIENT_ID') do
+  print 'Insert Client ID: '
+  gets.strip
+end
+
+client_secret = ENV.fetch('CLIENT_SECRET') do
+  print 'Insert Client Secret: '
+  gets.strip
+end
+
+Launchy.open("https://api.secure.mercedes-benz.com/oidc10/auth/oauth/v2/authorize"\
+             "?response_type=code&client_id=#{client_id}&redirect_uri=http://localhost"\
+             "&scope=mb:user:pool:reader mb:vehicle:status:general")
+
+print 'Insert code: '
+
+code = gets.strip
+
+headers = {
+  'content-type' => 'application/x-www-form-urlencoded',
+  'authorization' => "Basic #{Base64.strict_encode64("#{client_id}:#{client_secret}")}"
+}
+
+puts client.post('token',
+                 "grant_type=authorization_code&code=#{code}&redirect_uri=http://localhost",
+                 headers).body

@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+$stdout.sync = true
+
+require 'bundler/setup'
+require 'mercedes'
+require 'pry'
+
+ARGV.clear
+Pry.start
