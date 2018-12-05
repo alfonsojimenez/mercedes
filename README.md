@@ -1,5 +1,7 @@
 # mercedes
 
+[![Build Status](https://travis-ci.org/alfonsojimenez/mercedes.svg?branch=master)](https://travis-ci.org/alfonsojimenez/mercedes)
+
 <img src="https://user-images.githubusercontent.com/204811/49523343-dc100900-f8a9-11e8-86ff-f1a89e630c8f.png" width="500" alt="Mercedes-Benz logo">
 
 This gem is a Ruby client for interacting with Mercedes-Benz Connected Vehicle API. This API allows to access to relevant information about Mercedes-Benz vehicles and also modify its state such as locking/unlocking doors.
